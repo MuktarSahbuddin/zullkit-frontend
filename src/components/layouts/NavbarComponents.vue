@@ -2,6 +2,7 @@
 import LogoComponents from "./LogoComponents.vue";
 import NavigationLinks from "./NavigationLinks.vue";
 import UserInfo from "./UserInfo.vue";
+import AuthBotton from "./AuthBotton.vue";
 </script>
 
 
@@ -15,6 +16,7 @@ import UserInfo from "./UserInfo.vue";
       <LogoComponents />
       <NavigationLinks />
       <UserInfo />
+      <!-- <AuthBotton /> -->
     </div>
   </nav>
 </template>

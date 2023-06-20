@@ -2,17 +2,22 @@
 // tanda ./ menunjukkan di dalam folder yang sama
 // tanda ../ file keluar dari folder homepage
 import {onMounted,ref } from "vue";
+import { useRoute } from 'vue-router'
 import axios from "axios";
 //  import ItemsCard from "../ItemsCard.vue";
 import ItemsCard from "./../ItemsCard.vue";
 
+
 const items = ref([]);
+const category = ref({});
+const route = useRoute()
 
 async function getItemsData(){
   try {
-    const response= await axios.get('https://zullkit-backend.belajarkoding.com/api/products');
+    const response= await axios.get('https://zullkit-backend.belajarkoding.com/api/categories?id= '+ route.params.id  +'&show_product=1');
     console.log(response.data) ;
-    items.value = response.data.data.data;
+    items.value = response.data.data.products
+    category.value = response.data.data
   } catch (error) {
    console.error(error);
   }
@@ -31,7 +36,7 @@ onMounted(() =>{
 
 <template>
   <div class="container px-4 mx-auto my-16 md:px-12">
-    <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">New Items</h2>
+    <h2 class="mb-4 text-xl font-medium md:mb-0 md:text-lg">{{ category.name }}</h2>
     <div class="flex flex-wrap -mx-1 lg:-mx-4">
       <ItemsCard
         v-for="item in items"

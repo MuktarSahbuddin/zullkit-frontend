@@ -1,7 +1,35 @@
 <script setup>
+import { RouterLink } from "vue-router";
+import axios from "axios";
 import FeatureList from "@/components/authentication/FeatureList.vue";
-import { RouterLink } from 'vue-router'
+import { onMounted } from "vue";
+
+async function checkout(price) {
+  try {
+    const response = await axios.post(
+       "https://zullkit-backend.belajarkoding.com/api/checkout",
+      {
+        payment_total: price,
+        payment_status: "PENDING",
+      },
+      {
+        headers: {
+          Authorization:
+            localStorage.getItem("token_type") +
+            " " +
+            localStorage.getItem("access_token"),
+        },
+      }
+    );
+    window.location.href = response.data.data.payment_url;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
 </script>
+
 <template>
   <main>
     <div class="relative overflow-hidden bg-white">
@@ -33,7 +61,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Customizable layers
                     </li>
@@ -41,7 +69,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Official documentation
                     </li>
@@ -49,7 +77,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       SVG icons
                     </li>
@@ -57,7 +85,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       SVG illustrations
                     </li>
@@ -65,17 +93,17 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Pre-built design screen
                     </li>
                   </ul>
-                  <RouterLink
-                    to="/success"
+                  <button
+                    @click="checkout(2000)"
                     class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-black bg-gray-200 border border-transparent rounded-full hover:bg-gray-300 md:py-2 md:text-md md:px-10 hover:shadow"
                   >
                     Checkout Now
-                  </RouterLink>
+                  </button>
                 </div>
               </div>
               <div>
@@ -91,7 +119,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Customizable layers
                     </li>
@@ -99,7 +127,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Official documentation
                     </li>
@@ -107,7 +135,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       SVG icons
                     </li>
@@ -115,7 +143,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       SVG illustrations
                     </li>
@@ -123,7 +151,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Pre-built design screen
                     </li>
@@ -131,7 +159,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Coded template
                     </li>
@@ -139,7 +167,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Support 24/7
                     </li>
@@ -147,7 +175,7 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Private designer group
                     </li>
@@ -155,24 +183,24 @@ import { RouterLink } from 'vue-router'
                       <img
                         src="@/assets/img/icon-check.png"
                         class="float-left w-6 mr-2"
-                        alt=""
+                        alt
                       />
                       Unlock cloning app
                     </li>
                   </ul>
-                  <RouterLink
-                    to="/success"
+                  <button
+                    @click="checkout(9000)"
                     class="inline-flex items-center justify-center w-full px-8 py-3 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-full hover:bg-indigo-700 md:py-2 md:text-md md:px-10 hover:shadow"
                   >
                     Checkout Now
-                  </RouterLink>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
           <div class="w-full p-5 mx-auto mb-10 md:max-w-7xl">
             <div class="grid grid-cols-1 gap-4 mx-auto md:grid-cols-3 md:mx-0">
-             <FeatureList />
+              <FeatureLists />
             </div>
           </div>
         </div>
